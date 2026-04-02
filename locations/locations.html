@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Services by Location | GeoAxis Engineering Sri Lanka</title>
+    <meta name="description" content="GeoAxis Engineering provides professional land surveying services across Sri Lanka. Find licensed surveyors in Colombo, Matara, and Kurunegala — and island-wide coverage for all districts.">
+    <meta name="keywords" content="land surveyor Colombo, land surveyor Matara, land surveyor Kurunegala, survey company Sri Lanka, GeoAxis Engineering locations">
+    <link rel="canonical" href="https://geoaxis.lk/locations">
+    <meta property="og:title" content="Survey Services by Location | GeoAxis Engineering">
+    <meta property="og:description" content="Professional land surveying across Sri Lanka. Licensed surveyors in Colombo, Matara, and Kurunegala.">
+    <meta property="og:url" content="https://geoaxis.lk/locations">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "GeoAxis Engineering (Pvt) Ltd",
+      "url": "https://geoaxis.lk",
+      "telephone": "+94762896684",
+      "email": "geoaxisengineering@gmail.com",
+      "areaServed": [
+        { "@type": "City", "name": "Colombo" },
+        { "@type": "City", "name": "Matara" },
+        { "@type": "City", "name": "Kurunegala" },
+        { "@type": "Country", "name": "Sri Lanka" }
+      ],
+      "hasMap": "https://geoaxis.lk/locations"
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+
+        .location-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .location-card:hover {
+            transform: translateY(-4px);
+        }
+        .location-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,163,163,0.08) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .location-card:hover::before { opacity: 1; }
+
+        .card-number {
+            font-size: 80px;
+            font-weight: 800;
+            line-height: 1;
+            color: rgba(0,163,163,0.07);
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            letter-spacing: -4px;
+            pointer-events: none;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+        .location-card:hover .card-number { color: rgba(0,163,163,0.13); }
+
+        .district-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 2px;
+            background: rgba(0,163,163,0.12);
+            color: #00A3A3;
+            margin-bottom: 12px;
+        }
+
+        .teal-line {
+            width: 32px;
+            height: 2px;
+            background: #00A3A3;
+            margin: 16px 0;
+            transition: width 0.3s ease;
+        }
+        .location-card:hover .teal-line { width: 56px; }
+
+        .service-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 2px;
+        }
+        .service-pill::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: #00A3A3;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .map-grid {
+            background-image:
+                linear-gradient(rgba(0,163,163,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,163,163,0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .island-dot {
+            animation: pulse-dot 2.5s ease-in-out infinite;
+        }
+        .island-dot:nth-child(2) { animation-delay: 0.6s; }
+        .island-dot:nth-child(3) { animation-delay: 1.2s; }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.4); }
+        }
+
+        .coverage-bar {
+            height: 3px;
+            background: linear-gradient(90deg, #00A3A3, rgba(0,163,163,0.2));
+            border-radius: 2px;
+            animation: grow-bar 1.2s ease-out forwards;
+            transform-origin: left;
+        }
+        @keyframes grow-bar {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-animate { animation: fadeUp 0.7s ease both; }
+        .hero-animate:nth-child(2) { animation-delay: 0.1s; }
+        .hero-animate:nth-child(3) { animation-delay: 0.2s; }
+        .hero-animate:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="bg-white text-slate-900">
+
+    <!-- NAV -->
+    <nav class="sticky top-0 z-50 bg-[#0B1A2E]/95 backdrop-blur-md border-b border-white/10 py-4">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <a href="/" class="text-white font-bold text-2xl tracking-tighter">
+                GEOAXIS<span class="text-[#00A3A3]">.</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-white/90">
+                <a href="/" class="hover:text-[#00A3A3] transition">Home</a>
+                <a href="/about-us" class="hover:text-[#00A3A3] transition">About</a>
+                <div class="relative group">
+                    <button class="flex items-center hover:text-[#00A3A3] transition outline-none">
+                        Services
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-slate-100">
+                        <div class="py-2">
+                            <a href="/services/land-surveying" class="block px-4 py-2 text-slate-800 hover:bg-slate-50 hover:text-[#00A3A3] text-sm">Land Surveying</a>
+                            <a href="/services/engineering-surveys" class="block px-4 py-2 text-slate-800 hover:bg-slate-50 hover:text-[#00A3A3] text-sm">Engineering Surveys</a>
+                            <a href="/services/gis-digital-mapping" class="block px-4 py-2 text-slate-800 hover:bg-slate-50 hover:text-[#00A3A3] text-sm">GIS & Drone Mapping</a>
+                            <a href="/services/solar-surveying" class="block px-4 py-2 text-slate-800 hover:bg-slate-50 hover:text-[#00A3A3] text-sm">Solar Site Assessment</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/projects" class="hover:text-[#00A3A3] transition">Projects</a>
+                <a href="/locations" class="text-[#00A3A3]">Locations</a>
+            </div>
+            <a href="/contact" class="bg-[#00A3A3] hover:bg-white hover:text-[#0B1A2E] text-white px-5 py-2.5 rounded-sm text-sm font-bold transition-all">
+                REQUEST QUOTE
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="relative bg-[#0B1A2E] pt-20 pb-28 overflow-hidden map-grid">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+            <!-- Breadcrumb -->
+            <nav class="flex mb-6 text-xs font-mono uppercase tracking-widest text-[#00A3A3] hero-animate">
+                <a href="/" class="hover:underline text-white/40">Home</a>
+                <span class="mx-2 text-white/20">/</span>
+                <span>Locations</span>
+            </nav>
+
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-6 hero-animate">
+                        <span class="flex h-2 w-2 rounded-full bg-[#00A3A3]"></span>
+                        <span class="text-white/70 text-xs font-mono uppercase tracking-widest">Island-wide Coverage</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight hero-animate">
+                        Where We<br/>
+                        <span class="text-[#00A3A3]">Operate.</span>
+                    </h1>
+                    <p class="text-slate-400 text-lg mb-8 max-w-lg leading-relaxed hero-animate">
+                        GeoAxis Engineering maintains active field presence across Sri Lanka. Our licensed surveyors are deployed from three strategic hubs — covering every district from Jaffna to Hambantota.
+                    </p>
+                    <div class="flex flex-wrap gap-6 pt-6 border-t border-white/10 hero-animate">
+                        <div>
+                            <div class="text-2xl font-bold text-white">25</div>
+                            <div class="text-xs uppercase tracking-widest text-[#00A3A3] mt-1">Districts served</div>
+                        </div>
+                        <div class="w-px bg-white/10"></div>
+                        <div>
+                            <div class="text-2xl font-bold text-white">3</div>
+                            <div class="text-xs uppercase tracking-widest text-[#00A3A3] mt-1">Regional hubs</div>
+                        </div>
+                        <div class="w-px bg-white/10"></div>
+                        <div>
+                            <div class="text-2xl font-bold text-white">500+</div>
+                            <div class="text-xs uppercase tracking-widest text-[#00A3A3] mt-1">Projects completed</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sri Lanka schematic map -->
+                <div class="hidden lg:flex items-center justify-center">
+                    <div class="relative">
+                        <svg width="280" height="360" viewBox="0 0 280 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Sri Lanka island silhouette (simplified) -->
+                            <path d="M130 20 C148 18 165 24 175 36 C188 50 192 68 190 86 C195 100 200 116 198 132 C202 148 205 165 200 180 C198 196 192 210 186 224 C178 240 170 254 160 266 C150 278 138 288 128 296 C118 304 108 308 100 308 C90 306 80 298 72 288 C62 276 56 262 52 248 C46 232 44 216 46 200 C44 184 46 168 50 152 C52 136 58 122 66 108 C72 94 80 82 88 70 C96 56 108 36 118 24 Z"
+                                  fill="rgba(0,163,163,0.08)" stroke="rgba(0,163,163,0.25)" stroke-width="1.5"/>
+
+                            <!-- Internal terrain suggestion -->
+                            <path d="M100 120 C110 110 125 108 135 115 C145 122 148 135 145 148 C142 160 132 168 122 165 C112 162 104 152 102 140 Z"
+                                  fill="rgba(0,163,163,0.05)" stroke="rgba(0,163,163,0.1)" stroke-width="1"/>
+
+                            <!-- Colombo dot — West coast -->
+                            <g class="island-dot">
+                                <circle cx="72" cy="188" r="10" fill="rgba(0,163,163,0.15)" stroke="rgba(0,163,163,0.4)" stroke-width="1"/>
+                                <circle cx="72" cy="188" r="4" fill="#00A3A3"/>
+                            </g>
+                            <text x="88" y="185" fill="#00A3A3" font-size="11" font-weight="700" font-family="Inter, sans-serif">Colombo</text>
+                            <text x="88" y="198" fill="rgba(255,255,255,0.4)" font-size="9" font-family="Inter, sans-serif">Western Hub</text>
+
+                            <!-- Kurunegala dot — North central -->
+                            <g class="island-dot">
+                                <circle cx="118" cy="142" r="10" fill="rgba(0,163,163,0.15)" stroke="rgba(0,163,163,0.4)" stroke-width="1"/>
+                                <circle cx="118" cy="142" r="4" fill="#00A3A3"/>
+                            </g>
+                            <text x="134" y="139" fill="#00A3A3" font-size="11" font-weight="700" font-family="Inter, sans-serif">Kurunegala</text>
+                            <text x="134" y="152" fill="rgba(255,255,255,0.4)" font-size="9" font-family="Inter, sans-serif">North Central Hub</text>
+
+                            <!-- Matara dot — South coast -->
+                            <g class="island-dot">
+                                <circle cx="118" cy="282" r="10" fill="rgba(0,163,163,0.15)" stroke="rgba(0,163,163,0.4)" stroke-width="1"/>
+                                <circle cx="118" cy="282" r="4" fill="#00A3A3"/>
+                            </g>
+                            <text x="134" y="279" fill="#00A3A3" font-size="11" font-weight="700" font-family="Inter, sans-serif">Matara</text>
+                            <text x="134" y="292" fill="rgba(255,255,255,0.4)" font-size="9" font-family="Inter, sans-serif">Southern Hub</text>
+
+                            <!-- Connection lines -->
+                            <line x1="72" y1="188" x2="118" y2="152" stroke="rgba(0,163,163,0.2)" stroke-width="1" stroke-dasharray="3 3"/>
+                            <line x1="118" y1="152" x2="118" y2="272" stroke="rgba(0,163,163,0.2)" stroke-width="1" stroke-dasharray="3 3"/>
+                            <line x1="72" y1="188" x2="118" y2="272" stroke="rgba(0,163,163,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- LOCATION CARDS -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="mb-16 reveal">
+                <p class="text-[#00A3A3] text-xs font-bold uppercase tracking-widest mb-3">Our hubs</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-[#0B1A2E] mb-4">Select Your Location</h2>
+                <p class="text-slate-500 max-w-xl leading-relaxed">Each hub serves its surrounding districts with the same precision and turnaround. Click a location to learn more about services available in your area.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+
+                <!-- COLOMBO -->
+                <a href="/locations/colombo" class="location-card group block bg-white border border-slate-200 hover:border-[#00A3A3] hover:shadow-xl transition-all duration-300 p-8 reveal">
+                    <span class="card-number">01</span>
+                    <span class="district-tag">Western Province</span>
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold text-[#0B1A2E] group-hover:text-[#00A3A3] transition-colors">Colombo</h2>
+                            <p class="text-slate-400 text-sm mt-1">& Greater Colombo Area</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full border border-slate-200 group-hover:border-[#00A3A3] group-hover:bg-[#00A3A3] flex items-center justify-center transition-all flex-shrink-0 mt-1">
+                            <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="teal-line"></div>
+
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                        Our primary operational hub serving the Western Province and surrounding districts. High-density urban and construction survey capability for Colombo's fast-growing development sector.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="service-pill">Boundary surveys</span>
+                        <span class="service-pill">Construction setout</span>
+                        <span class="service-pill">Topographical</span>
+                        <span class="service-pill">GIS mapping</span>
+                    </div>
+
+                    <div class="pt-5 border-t border-slate-100 flex items-center justify-between">
+                        <div class="text-xs text-slate-400">
+                            <span class="font-semibold text-slate-600">Districts covered:</span> Colombo, Gampaha, Kalutara
+                        </div>
+                    </div>
+                </a>
+
+                <!-- KURUNEGALA -->
+                <a href="/locations/kurunegala" class="location-card group block bg-white border border-slate-200 hover:border-[#00A3A3] hover:shadow-xl transition-all duration-300 p-8 reveal" style="transition-delay:0.08s">
+                    <span class="card-number">02</span>
+                    <span class="district-tag">North Western Province</span>
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold text-[#0B1A2E] group-hover:text-[#00A3A3] transition-colors">Kurunegala</h2>
+                            <p class="text-slate-400 text-sm mt-1">& North Western Region</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full border border-slate-200 group-hover:border-[#00A3A3] group-hover:bg-[#00A3A3] flex items-center justify-center transition-all flex-shrink-0 mt-1">
+                            <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="teal-line"></div>
+
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                        Serving the North Western and North Central provinces, this hub handles agricultural land demarcation, rural subdivision surveys, and infrastructure corridor mapping across mixed terrain.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="service-pill">Cadastral surveys</span>
+                        <span class="service-pill">Road alignment</span>
+                        <span class="service-pill">Drone mapping</span>
+                        <span class="service-pill">Solar siting</span>
+                    </div>
+
+                    <div class="pt-5 border-t border-slate-100 flex items-center justify-between">
+                        <div class="text-xs text-slate-400">
+                            <span class="font-semibold text-slate-600">Districts covered:</span> Kurunegala, Puttalam, Anuradhapura
+                        </div>
+                    </div>
+                </a>
+
+                <!-- MATARA -->
+                <a href="/locations/matara" class="location-card group block bg-white border border-slate-200 hover:border-[#00A3A3] hover:shadow-xl transition-all duration-300 p-8 reveal" style="transition-delay:0.16s">
+                    <span class="card-number">03</span>
+                    <span class="district-tag">Southern Province</span>
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold text-[#0B1A2E] group-hover:text-[#00A3A3] transition-colors">Matara</h2>
+                            <p class="text-slate-400 text-sm mt-1">& Southern Region</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full border border-slate-200 group-hover:border-[#00A3A3] group-hover:bg-[#00A3A3] flex items-center justify-center transition-all flex-shrink-0 mt-1">
+                            <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="teal-line"></div>
+
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                        Covering the full Southern Province and Sabaragamuwa region. Experienced in coastal boundary surveys, hillside topography, and tourism development projects along the southern coastline.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="service-pill">Coastal surveys</span>
+                        <span class="service-pill">Topographical</span>
+                        <span class="service-pill">Construction setout</span>
+                        <span class="service-pill">Boundary</span>
+                    </div>
+
+                    <div class="pt-5 border-t border-slate-100 flex items-center justify-between">
+                        <div class="text-xs text-slate-400">
+                            <span class="font-semibold text-slate-600">Districts covered:</span> Matara, Galle, Hambantota, Ratnapura
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FULL ISLAND COVERAGE STRIP -->
+    <section class="py-20 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <p class="text-[#00A3A3] text-xs font-bold uppercase tracking-widest mb-3">Beyond the hubs</p>
+                    <h2 class="text-3xl font-bold text-[#0B1A2E] mb-6 leading-tight">
+                        Don't see your district?<br/>We still cover it.
+                    </h2>
+                    <p class="text-slate-500 leading-relaxed mb-8">
+                        Our field teams are fully mobile. While Colombo, Kurunegala, and Matara are our primary bases, GeoAxis Engineering holds the regulatory clearance and logistical capability to deploy to any of Sri Lanka's 25 districts — from Jaffna in the north to Hambantota in the south.
+                    </p>
+                    <a href="/contact" class="inline-block bg-[#0B1A2E] text-white px-8 py-4 rounded-sm font-bold text-sm hover:bg-[#00A3A3] transition-colors">
+                        Enquire for your district →
+                    </a>
+                </div>
+
+                <div class="reveal">
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="font-semibold text-[#0B1A2E]">Western Province</span>
+                                <span class="text-[#00A3A3] font-bold">Primary hub</span>
+                            </div>
+                            <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="coverage-bar" style="width:100%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="font-semibold text-[#0B1A2E]">North Western &amp; North Central</span>
+                                <span class="text-[#00A3A3] font-bold">Primary hub</span>
+                            </div>
+                            <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="coverage-bar" style="width:100%; animation-delay:0.2s"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="font-semibold text-[#0B1A2E]">Southern Province</span>
+                                <span class="text-[#00A3A3] font-bold">Primary hub</span>
+                            </div>
+                            <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="coverage-bar" style="width:100%; animation-delay:0.4s"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="font-semibold text-[#0B1A2E]">Central &amp; Uva Province</span>
+                                <span class="text-slate-400 text-xs">Mobile teams</span>
+                            </div>
+                            <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="coverage-bar" style="width:82%; animation-delay:0.5s"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="font-semibold text-[#0B1A2E]">Northern &amp; Eastern Province</span>
+                                <span class="text-slate-400 text-xs">Mobile teams</span>
+                            </div>
+                            <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="coverage-bar" style="width:75%; animation-delay:0.6s"></div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 mt-2 border-t border-slate-100">
+                            <p class="text-xs text-slate-400">All surveys conducted by ICTAD-registered licensed surveyors in compliance with the Survey Ordinance of Sri Lanka.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA STRIP -->
+    <section class="py-20 bg-[#00A3A3]">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-white text-3xl md:text-4xl font-bold mb-4">Ready to start your survey?</h2>
+            <p class="text-white/75 mb-10 max-w-lg mx-auto">Tell us your location and project type. We'll confirm coverage and get you a quote within one business day.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/contact" class="bg-[#0B1A2E] text-white px-10 py-4 rounded-sm font-bold hover:bg-white hover:text-[#0B1A2E] transition-all">Get a Quote</a>
+                <a href="tel:+94762896684" class="bg-transparent border-2 border-white text-white px-10 py-4 rounded-sm font-bold hover:bg-white hover:text-[#0B1A2E] transition-all">Call +94 76 289 6684</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0B1A2E] text-white pt-20 pb-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-16">
+            <div class="col-span-1">
+                <div class="text-2xl font-bold mb-6 uppercase tracking-tighter">GeoAxis<span class="text-[#00A3A3]">.</span></div>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6">Licensed engineering surveyors and GIS consultants providing precision services island-wide.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-[#00A3A3] transition text-xs">In</a>
+                    <a href="#" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-[#00A3A3] transition text-xs">Fb</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 text-white text-sm uppercase tracking-widest">Services</h4>
+                <ul class="text-slate-400 text-sm space-y-3">
+                    <li><a href="/services/land-surveying" class="hover:text-[#00A3A3] transition">Land Surveying</a></li>
+                    <li><a href="/services/engineering-surveys" class="hover:text-[#00A3A3] transition">Engineering Surveys</a></li>
+                    <li><a href="/services/gis-digital-mapping" class="hover:text-[#00A3A3] transition">GIS & Drone Mapping</a></li>
+                    <li><a href="/services/solar-surveying" class="hover:text-[#00A3A3] transition">Solar Site Surveys</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 text-white text-sm uppercase tracking-widest">Locations</h4>
+                <ul class="text-slate-400 text-sm space-y-3">
+                    <li><a href="/locations/colombo" class="hover:text-[#00A3A3] transition">Colombo</a></li>
+                    <li><a href="/locations/kurunegala" class="hover:text-[#00A3A3] transition">Kurunegala</a></li>
+                    <li><a href="/locations/matara" class="hover:text-[#00A3A3] transition">Matara</a></li>
+                    <li><a href="/locations" class="hover:text-[#00A3A3] transition">All Locations</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 text-white text-sm uppercase tracking-widest">Get In Touch</h4>
+                <p class="text-slate-400 text-sm mb-2">Head Office: Ratmalana, Sri Lanka</p>
+                <p class="text-white font-bold mb-2">+94 76 289 6684</p>
+                <p class="text-slate-400 text-sm">geoaxisengineering@gmail.com</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-white/10 text-center text-slate-500 text-xs">
+            © 2023 GeoAxis Engineering (Pvt) Ltd. Registered Licensed Surveyors.
+        </div>
+    </footer>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/94762896684" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.48s3.48 5.228 3.48 8.404c0 6.556-5.332 11.888-11.888 11.888-2.01 0-3.988-.511-5.741-1.482l-6.142 1.71zm6.233-3.987c1.554.921 3.203 1.408 4.896 1.408 5.398 0 9.791-4.393 9.791-9.791 0-2.614-1.018-5.071-2.867-6.92s-4.306-2.867-6.924-2.867c-5.398 0-9.791 4.393-9.791 9.791 0 1.83.511 3.593 1.478 5.101l-1.002 3.66 3.743-1.042z"/></svg>
+    </a>
+
+    <script>
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
